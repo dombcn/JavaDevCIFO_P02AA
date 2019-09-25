@@ -1,6 +1,7 @@
 import clases.cifo.com.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class PartidaPoker {
 	
@@ -8,7 +9,7 @@ public class PartidaPoker {
 		// Aplicación de consola que usa la clase Poker
 		Poker partida;
 		Scanner sc = new Scanner(System.in);
-		int num;
+		int num=0;
 		String nombreJug = "";
 		Jugador jugador;
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
@@ -18,9 +19,16 @@ public class PartidaPoker {
 		// Entrar número de jugadores de la partida
 		do {
 			System.out.println("Entra el número de jugadores:");
-			num = sc.nextInt();
-			sc.nextLine();
-			if(num<3) System.out.println("Como mínimo 3 jugadores.");
+			try {
+				num = sc.nextInt();
+				sc.nextLine();
+				if(num<3) System.out.println("Como mínimo 3 jugadores.");
+			}
+			catch (InputMismatchException e) {
+				System.out.println("Error: no és un número.");
+				sc.nextLine();
+				num = 0;
+			}
 		} while(num<3);
 		// Entrar los nombres de los jugadores de la partida
 		for(int i=1; i<=num; i++) {
